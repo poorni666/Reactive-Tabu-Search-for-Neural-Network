@@ -22,8 +22,7 @@ distance = [[random.random() for _ in range(n)] for _ in range(n)]
 def calculate_total_cost(perm, flow_mat, dist_mat, size):
     """
     Calculating the cost of a solution by summing the product of flow 
-    and distance for all pairs of facilities.
-    Complexity: O(n^2)
+    and distance for all pairs of facilities
     """
     total_cost = 0
     for i in range(size):
