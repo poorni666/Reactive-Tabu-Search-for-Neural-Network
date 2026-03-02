@@ -48,7 +48,8 @@ def move_change(r, s, current_perm, flow, distance, n):
 def make_tabu(r, s, perm, occupation_matrix, time_step):
     """
     Record the last occupation of the facilities of two units that are being swapped.
-    Marks the assignment (facility -> new_location) as tabu.
+    Updates the tabu list to prevent both facilities from returning 
+    to their original locations immediately
     """
     facility_r = perm[r]
     facility_s = perm[s]
@@ -114,8 +115,6 @@ if __name__ == "__main__":
                 best_so_far = current_perm.copy()
     
     print(f"Step {t}: Current cost={current_cost}, Best cost={best_cost}")
-    
-    print("-" * 30)
     print("Search Completed.")
     print(f"Best solution found: {best_so_far}")
     print(f"Best cost: {best_cost:.4f}")
