@@ -90,7 +90,7 @@ class RTS:
         return False  # No escape needed
 
     def reactive_tabu_search(self, max_iterations=10000, target=None):
-        """Main RTS loop."""
+        """Main RTS loop"""
         while self.current_time < max_iterations:
 
             escape = self.check_for_repetition()
@@ -133,13 +133,12 @@ class RTS:
         return "UNSUCCESSFUL"
     
     def choose_best_move(self, moves):
-        """Select the best non-tabu move, or tabu move if it passes aspiration."""
+        """Select the best non tabu move, or tabu move if it passes aspiration."""
         best_move = None
         best_delta = float('inf')
-        tenure = int(self.list_size)  # Cap tenure to avoid overflow
+        tenure = int(self.list_size)  # must be int, cant have partial interations
         for r, s in moves:
             delta = move_change(r, s, self.current_perm, self.flow, self.distance, self.n)
-            # list_size to int for consistent tenure comparison
             tabu = is_tabu(r, s, self.current_perm, self.lastest_occupation, tenure, self.current_time)
             # Aspiration move if new global best 
             asp = aspiration(self.current_f, delta, self.best_so_far)
@@ -153,7 +152,7 @@ class RTS:
         return best_move, best_delta
 
     def escape_mechanism(self):
-        """Random walk to escape cycling / local optima."""
+        """Random walk to escape cycling / local optima"""
         self.statistics['escape_count'] += 1
 
         steps = int(1 + (1 + random.random()) * self.moving_average / 2)
